@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "65B168DC0806C6174162637A723B587A88D4753C",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "11467B891B05E74285D0FDA7F262E859A9337C82" : 9223372036854775807,
+    "65B168DC0806C6174162637A723B587A88D4753C" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "576D6BB7-91EE-4CA5-BEAD-7BF407B59A1F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "11467B891B05E74285D0FDA7F262E859A9337C82" : "..\/Apollo\/apollo-ios",
+    "65B168DC0806C6174162637A723B587A88D4753C" : "pokedex-ios\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "pokedex-apollo",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "exercise-06-solution\/pokedex-apollo\/pokedex-apollo.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/apollostack\/apollo-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "11467B891B05E74285D0FDA7F262E859A9337C82"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/learnapollo\/pokedex-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "65B168DC0806C6174162637A723B587A88D4753C"
+    }
+  ]
+}

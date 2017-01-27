@@ -24,6 +24,19 @@
 		55988C4D1E2144CB00537127 /* PokemonDetailViewController.graphql in Resources */ = {isa = PBXBuildFile; fileRef = 55988C4C1E2144CB00537127 /* PokemonDetailViewController.graphql */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9FE20F431E31846600F49844 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3C3870D8C1A444BA65AF534B /* Pods-pokedex-apollo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pokedex-apollo.release.xcconfig"; path = "Pods/Target Support Files/Pods-pokedex-apollo/Pods-pokedex-apollo.release.xcconfig"; sourceTree = "<group>"; };
 		5504F0071E1FDC3200EEA72F /* GreetingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GreetingCell.swift; sourceTree = "<group>"; };
@@ -153,6 +166,7 @@
 				55410F8B1E1FA42300279F35 /* Resources */,
 				565781321CBD3B66F06BAA95 /* [CP] Embed Pods Frameworks */,
 				167EE27708B0FA2262810598 /* [CP] Copy Pods Resources */,
+				9FE20F431E31846600F49844 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -170,11 +184,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Nikolas Burk";
 				TargetAttributes = {
 					55410F8C1E1FA42300279F35 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 5TL236FN6U;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -331,6 +346,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -380,6 +396,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -408,7 +425,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 948A43F0E2EBAC2D2CC3BC1F /* Pods-pokedex-apollo.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 5TL236FN6U;
 				INFOPLIST_FILE = "pokedex-apollo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.graphcool.nikolasburk.pokedex-apollo";
@@ -421,7 +440,9 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3C3870D8C1A444BA65AF534B /* Pods-pokedex-apollo.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 5TL236FN6U;
 				INFOPLIST_FILE = "pokedex-apollo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.graphcool.nikolasburk.pokedex-apollo";
