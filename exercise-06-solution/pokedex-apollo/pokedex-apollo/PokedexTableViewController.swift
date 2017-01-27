@@ -39,13 +39,18 @@ class PokedexTableViewController: UITableViewController {
         super.viewDidLoad()
         fetchTrainer()
     }
-    
+  
+    deinit {
+        watcher?.cancel()
+    }
     
     // MARK: Data fetching
-    
+  
+    var watcher: GraphQLQueryWatcher<TrainerQuery>?
+  
     func fetchTrainer() {
         let trainerQuery = TrainerQuery(name: "__NAME__")
-        apollo.fetch(query: trainerQuery) { [unowned self] (result: GraphQLResult?, error: Error?) in
+        watcher = apollo.watch(query: trainerQuery) { (result, error) in
             if let error = error {
                 print(#function, "ERROR | An error occured: \(error)")
                 return
@@ -61,7 +66,7 @@ class PokedexTableViewController: UITableViewController {
     func setTrainerData(trainer: TrainerQuery.Data.Trainer) {
         self.trainerId = trainer.id
         self.trainerName = trainer.name
-        self.ownedPokemons = trainer.ownedPokemons.map { $0.fragments.pokemonDetails }
+        self.ownedPokemons = trainer.ownedPokemons?.map { $0.fragments.pokemonDetails }
     }
     
     
@@ -79,8 +84,8 @@ class PokedexTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case Sections.greeting.rawValue:
+      switch Sections(rawValue: indexPath.section) {
+        case .greeting?:
             let greetingString: String
             if let name = trainerName,
                let ownedPokemons = ownedPokemons {
@@ -92,13 +97,13 @@ class PokedexTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "GreetingCell", for: indexPath) as! GreetingCell
             cell.greetingLabel.text = greetingString
             return cell
-        case Sections.pokemons.rawValue:
+        case .pokemons?:
             let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonCell", for: indexPath) as! PokemonCell
             if let ownedPokemons = ownedPokemons {
                 cell.ownedPokemon = ownedPokemons[indexPath.row]
             }
             return cell
-        default:
+        case nil:
             fatalError("ERROR: Unknown section")
         }
         
@@ -111,24 +116,11 @@ class PokedexTableViewController: UITableViewController {
         if segue.identifier == "CreateNewPokemonSegue" {
             let createPokemonViewController = segue.destination as! CreatePokemonViewController
             createPokemonViewController.trainerId = trainerId
-            createPokemonViewController.addedNewPokemon = { [unowned self] in self.ownedPokemons?.append($0) }
         }
         else if segue.identifier == "ShowPokemonDetailsSegue" {
             let pokemonDetailViewController = segue.destination as! PokemonDetailViewController
             let selectedRow = tableView.indexPathForSelectedRow!.row
             pokemonDetailViewController.pokemonDetails = ownedPokemons?[selectedRow]
-            pokemonDetailViewController.updatedPokemon = { [unowned self] pokemonDetails in
-                if let index = self.ownedPokemons?.index(where: { pokemonDetailsInArray in
-                    return pokemonDetailsInArray.id == pokemonDetails.id
-                }) {
-                    self.ownedPokemons?[index] = pokemonDetails
-                }
-            }
-            pokemonDetailViewController.deletedPokemon = { [unowned self] id in
-                self.ownedPokemons = self.ownedPokemons?.filter { ownedPokemon in
-                    ownedPokemon.id != id
-                }
-            }
         }
     }
 

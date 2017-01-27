@@ -39,10 +39,6 @@ class PokemonDetailViewController: UIViewController {
         }
     }
     
-    var updatedPokemon: ((PokemonDetails) -> ())?
-    var deletedPokemon: ((GraphQLID) -> ())?
-    
-    
     // MARK: View controller life cycle
     
     override func viewDidLoad() {
@@ -53,7 +49,6 @@ class PokemonDetailViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        updatedPokemon?(pokemonDetails)
     }
     
     // MARK: Actions
@@ -70,13 +65,12 @@ class PokemonDetailViewController: UIViewController {
             saveActivityIndicator.startAnimating()
             
             let updatePokemonMutation = UpdatePokemonMutation(id: id, name: name, url: url)
-            apollo.perform(mutation: updatePokemonMutation) { [unowned self] result, error in
+            apollo.perform(mutation: updatePokemonMutation) { result, error in
                 
                 if let error = error {
                     print(#function, "ERROR | Could not update Pokemon: (\(error))")
                 }
-                else if let pokemonDetails = result?.data?.updatePokemon?.fragments.pokemonDetails {
-                    self.pokemonDetails = pokemonDetails
+                else if result?.data != nil {
                     self.saveActivityIndicator.stopAnimating()
                     self.isEditingPokemon = !self.isEditingPokemon
                 }
@@ -90,15 +84,14 @@ class PokemonDetailViewController: UIViewController {
     @IBAction func deleteButtonPressed() {
         deleteActivityIndicator.startAnimating()
         let deleteMutation = DeletePokemonMutation(id: pokemonDetails.id)
-        apollo.perform(mutation: deleteMutation) { [unowned self] result, error in
+        apollo.perform(mutation: deleteMutation) { result, error in
             self.deleteActivityIndicator.stopAnimating()
             if let error = error {
                 print(#function, "ERROR | Could not delete Pokemon: (\(error))")
             }
             else {
-                if let pokemonId = result?.data?.deletePokemon?.id {
-                    self.deletedPokemon?(pokemonId)
-                    let _ = self.navigationController?.popViewController(animated: true)
+                if result?.data != nil {
+                  _ = self.navigationController?.popViewController(animated: true)
                 }
             }
         }

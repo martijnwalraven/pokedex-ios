@@ -16,8 +16,7 @@ class CreatePokemonViewController: UIViewController {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var trainerId: GraphQLID!
-    var addedNewPokemon: ((PokemonDetails) -> ())?
-    
+  
     // MARK: View controller life cycle
     
     override func viewDidLoad() {
@@ -41,11 +40,7 @@ class CreatePokemonViewController: UIViewController {
                 print(#function, "ERROR | An error occured while adding the new Pokemon: \(error)")
                 return
             }
-            guard let newPokemon = result?.data?.createPokemon?.fragments.pokemonDetails else {
-                print(#function, "ERROR | Could not get the new Pokemon")
-                return
-            }
-            self.addedNewPokemon?(newPokemon)
+ 
             self.presentingViewController?.dismiss(animated: true)
         }
     }
