@@ -49,7 +49,7 @@ class PokedexTableViewController: UITableViewController {
     var watcher: GraphQLQueryWatcher<TrainerQuery>?
   
     func fetchTrainer() {
-        let trainerQuery = TrainerQuery(name: "__NAME__")
+        let trainerQuery = TrainerQuery(name: "Martijn Walraven")
         watcher = apollo.watch(query: trainerQuery) { (result, error) in
             if let error = error {
                 print(#function, "ERROR | An error occured: \(error)")

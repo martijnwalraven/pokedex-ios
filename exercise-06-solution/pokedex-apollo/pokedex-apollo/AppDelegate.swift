@@ -9,19 +9,22 @@
 import UIKit
 import Apollo
 
-let graphlQLEndpointURL = "https://api.graph.cool/simple/v1/__PROJECT_ID__"
+let graphlQLEndpointURL = "https://api.graph.cool/simple/v1/cixpxx9be0mhb0169xxi1o2tx"
 let apollo = ApolloClient(url: URL(string: graphlQLEndpointURL)!)
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, ApolloClientDelegate {
     
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        apollo.cacheKeyForObject = { $0["id"] }
+        apollo.delegate = self
         return true
     }
-    
-    
+  
+    // MARK: - ApolloClientDelegate
+  
+    func cacheKeyForObject(object: JSONObject) -> JSONValue? {
+      return object["id"]
+    }
 }
-

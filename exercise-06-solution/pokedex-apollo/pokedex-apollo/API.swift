@@ -6,10 +6,13 @@ public final class CreatePokemonMutation: GraphQLMutation {
   public static let operationDefinition =
     "mutation CreatePokemon($name: String!, $url: String!, $trainerId: ID) {" +
     "  createPokemon(name: $name, url: $url, trainerId: $trainerId) {" +
+    "    __typename" +
     "    ...PokemonDetails" +
     "    trainer {" +
+    "      __typename" +
     "      id" +
     "      ownedPokemons {" +
+    "        __typename" +
     "        id" +
     "      }" +
     "    }" +
@@ -39,12 +42,13 @@ public final class CreatePokemonMutation: GraphQLMutation {
     }
 
     public struct CreatePokemon: GraphQLMappable {
-      public let __typename = "Pokemon"
+      public let __typename: String
       public let trainer: Trainer?
 
       public let fragments: Fragments
 
       public init(reader: GraphQLResultReader) throws {
+        __typename = try reader.value(for: Field(responseName: "__typename"))
         trainer = try reader.optionalValue(for: Field(responseName: "trainer"))
 
         let pokemonDetails = try PokemonDetails(reader: reader)
@@ -56,20 +60,22 @@ public final class CreatePokemonMutation: GraphQLMutation {
       }
 
       public struct Trainer: GraphQLMappable {
-        public let __typename = "Trainer"
+        public let __typename: String
         public let id: GraphQLID
         public let ownedPokemons: [OwnedPokemon]?
 
         public init(reader: GraphQLResultReader) throws {
+          __typename = try reader.value(for: Field(responseName: "__typename"))
           id = try reader.value(for: Field(responseName: "id"))
           ownedPokemons = try reader.optionalList(for: Field(responseName: "ownedPokemons"))
         }
 
         public struct OwnedPokemon: GraphQLMappable {
-          public let __typename = "Pokemon"
+          public let __typename: String
           public let id: GraphQLID
 
           public init(reader: GraphQLResultReader) throws {
+            __typename = try reader.value(for: Field(responseName: "__typename"))
             id = try reader.value(for: Field(responseName: "id"))
           }
         }
@@ -82,9 +88,11 @@ public final class TrainerQuery: GraphQLQuery {
   public static let operationDefinition =
     "query Trainer($name: String!) {" +
     "  Trainer(name: $name) {" +
+    "    __typename" +
     "    id" +
     "    name" +
     "    ownedPokemons {" +
+    "      __typename" +
     "      ...PokemonDetails" +
     "    }" +
     "  }" +
@@ -109,23 +117,26 @@ public final class TrainerQuery: GraphQLQuery {
     }
 
     public struct Trainer: GraphQLMappable {
-      public let __typename = "Trainer"
+      public let __typename: String
       public let id: GraphQLID
       public let name: String?
       public let ownedPokemons: [OwnedPokemon]?
 
       public init(reader: GraphQLResultReader) throws {
+        __typename = try reader.value(for: Field(responseName: "__typename"))
         id = try reader.value(for: Field(responseName: "id"))
         name = try reader.optionalValue(for: Field(responseName: "name"))
         ownedPokemons = try reader.optionalList(for: Field(responseName: "ownedPokemons"))
       }
 
       public struct OwnedPokemon: GraphQLMappable {
-        public let __typename = "Pokemon"
+        public let __typename: String
 
         public let fragments: Fragments
 
         public init(reader: GraphQLResultReader) throws {
+          __typename = try reader.value(for: Field(responseName: "__typename"))
+
           let pokemonDetails = try PokemonDetails(reader: reader)
           fragments = Fragments(pokemonDetails: pokemonDetails)
         }
@@ -142,6 +153,7 @@ public final class UpdatePokemonMutation: GraphQLMutation {
   public static let operationDefinition =
     "mutation UpdatePokemon($id: ID!, $name: String!, $url: String!) {" +
     "  updatePokemon(id: $id, name: $name, url: $url) {" +
+    "    __typename" +
     "    ...PokemonDetails" +
     "  }" +
     "}"
@@ -169,11 +181,13 @@ public final class UpdatePokemonMutation: GraphQLMutation {
     }
 
     public struct UpdatePokemon: GraphQLMappable {
-      public let __typename = "Pokemon"
+      public let __typename: String
 
       public let fragments: Fragments
 
       public init(reader: GraphQLResultReader) throws {
+        __typename = try reader.value(for: Field(responseName: "__typename"))
+
         let pokemonDetails = try PokemonDetails(reader: reader)
         fragments = Fragments(pokemonDetails: pokemonDetails)
       }
@@ -189,9 +203,12 @@ public final class DeletePokemonMutation: GraphQLMutation {
   public static let operationDefinition =
     "mutation DeletePokemon($id: ID!) {" +
     "  deletePokemon(id: $id) {" +
+    "    __typename" +
     "    trainer {" +
+    "      __typename" +
     "      id" +
     "      ownedPokemons {" +
+    "        __typename" +
     "        id" +
     "      }" +
     "    }" +
@@ -216,28 +233,31 @@ public final class DeletePokemonMutation: GraphQLMutation {
     }
 
     public struct DeletePokemon: GraphQLMappable {
-      public let __typename = "Pokemon"
+      public let __typename: String
       public let trainer: Trainer?
 
       public init(reader: GraphQLResultReader) throws {
+        __typename = try reader.value(for: Field(responseName: "__typename"))
         trainer = try reader.optionalValue(for: Field(responseName: "trainer"))
       }
 
       public struct Trainer: GraphQLMappable {
-        public let __typename = "Trainer"
+        public let __typename: String
         public let id: GraphQLID
         public let ownedPokemons: [OwnedPokemon]?
 
         public init(reader: GraphQLResultReader) throws {
+          __typename = try reader.value(for: Field(responseName: "__typename"))
           id = try reader.value(for: Field(responseName: "id"))
           ownedPokemons = try reader.optionalList(for: Field(responseName: "ownedPokemons"))
         }
 
         public struct OwnedPokemon: GraphQLMappable {
-          public let __typename = "Pokemon"
+          public let __typename: String
           public let id: GraphQLID
 
           public init(reader: GraphQLResultReader) throws {
+            __typename = try reader.value(for: Field(responseName: "__typename"))
             id = try reader.value(for: Field(responseName: "id"))
           }
         }
@@ -249,6 +269,7 @@ public final class DeletePokemonMutation: GraphQLMutation {
 public struct PokemonDetails: GraphQLNamedFragment {
   public static let fragmentDefinition =
     "fragment PokemonDetails on Pokemon {" +
+    "  __typename" +
     "  id" +
     "  name" +
     "  url" +
@@ -256,12 +277,13 @@ public struct PokemonDetails: GraphQLNamedFragment {
 
   public static let possibleTypes = ["Pokemon"]
 
-  public let __typename = "Pokemon"
+  public let __typename: String
   public let id: GraphQLID
   public let name: String?
   public let url: String?
 
   public init(reader: GraphQLResultReader) throws {
+    __typename = try reader.value(for: Field(responseName: "__typename"))
     id = try reader.value(for: Field(responseName: "id"))
     name = try reader.optionalValue(for: Field(responseName: "name"))
     url = try reader.optionalValue(for: Field(responseName: "url"))
